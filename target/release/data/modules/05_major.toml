@@ -1,0 +1,127 @@
+id = "05_major"
+title = "Major Quiz #1 — Modules 01–04"
+lesson = """
+# Major Quiz #1
+
+This is a checkpoint quiz covering all material from Modules 01 through 04:
+
+- Module 01: SELECT Basics
+- Module 02: WHERE Clauses
+- Module 03: JOINs
+- Module 04: GROUP BY & Aggregates
+
+You need 90% to pass and unlock the next section.
+
+Take a moment to review any topics you're unsure about before starting.
+"""
+is_major_quiz = true
+
+[[questions]]
+question = "What does SELECT DISTINCT city FROM customers; do?"
+options = [
+  "Returns all cities, including duplicates",
+  "Returns each unique city value only once",
+  "Deletes duplicate city entries",
+  "Sorts cities alphabetically",
+]
+correct = 1
+explanation = "DISTINCT removes duplicate values from the result set."
+
+[[questions]]
+question = "Which clause filters rows BEFORE grouping?"
+options = [
+  "HAVING",
+  "GROUP BY",
+  "WHERE",
+  "ORDER BY",
+]
+correct = 2
+explanation = "WHERE filters individual rows before GROUP BY processes them into groups."
+
+[[questions]]
+question = "What does a LEFT JOIN do when there is no matching row in the right table?"
+options = [
+  "Skips that row entirely",
+  "Returns the left row with NULLs for the right table columns",
+  "Throws an error",
+  "Duplicates the left row",
+]
+correct = 1
+explanation = "LEFT JOIN always includes all left-table rows, filling right-side columns with NULL when unmatched."
+
+[[questions]]
+question = "In the query SELECT dept, COUNT(*) FROM staff GROUP BY dept HAVING COUNT(*) > 5; — what does HAVING do?"
+options = [
+  "Filters individual staff members",
+  "Sorts departments by count",
+  "Only includes departments with more than 5 members",
+  "Limits output to 5 rows",
+]
+correct = 2
+explanation = "HAVING filters groups after aggregation — here it keeps only departments with count > 5."
+
+[[questions]]
+question = "What is the correct order of SQL clauses?"
+options = [
+  "SELECT, WHERE, FROM, GROUP BY",
+  "SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY",
+  "FROM, SELECT, WHERE, HAVING",
+  "SELECT, FROM, GROUP BY, WHERE",
+]
+correct = 1
+explanation = "The standard clause order is: SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY."
+
+[[questions]]
+question = "What happens if you use WHERE salary = NULL instead of WHERE salary IS NULL?"
+options = [
+  "It works the same way",
+  "It returns rows where salary is zero",
+  "It returns no rows because comparisons with NULL always yield unknown",
+  "It causes a syntax error",
+]
+correct = 2
+explanation = "Any comparison with NULL (using =, <, >, etc.) returns unknown/false. You must use IS NULL."
+
+[[questions]]
+question = "Which aggregate function would you use to find the total revenue?"
+options = [
+  "COUNT(revenue)",
+  "AVG(revenue)",
+  "SUM(revenue)",
+  "MAX(revenue)",
+]
+correct = 2
+explanation = "SUM() adds up all values in a column — perfect for computing total revenue."
+
+[[questions]]
+question = "In a JOIN, what does the ON clause specify?"
+options = [
+  "Which rows to delete",
+  "The relationship or matching condition between the tables",
+  "The output format",
+  "Which table is primary",
+]
+correct = 1
+explanation = "ON defines the condition that links the two tables, e.g., ON orders.cust_id = customers.id."
+
+[[questions]]
+question = "What does SELECT name AS full_name FROM users; do?"
+options = [
+  "Renames the column permanently in the database",
+  "Creates a new column called full_name",
+  "Displays the name column with the header 'full_name' in results",
+  "Filters by full_name",
+]
+correct = 2
+explanation = "AS creates a column alias — it changes the display name in results but doesn't alter the table."
+
+[[questions]]
+question = "How does an INNER JOIN differ from a FULL OUTER JOIN?"
+options = [
+  "INNER returns only matched rows; FULL OUTER returns all rows from both tables",
+  "They are identical",
+  "INNER is faster so it returns fewer columns",
+  "FULL OUTER only works with two tables",
+]
+correct = 0
+explanation = "INNER JOIN returns only rows matching in both tables. FULL OUTER JOIN returns everything, with NULLs for non-matches."

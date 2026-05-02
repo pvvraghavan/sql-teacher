@@ -1,0 +1,113 @@
+id = "02"
+title = "WHERE Clauses"
+lesson = """
+# WHERE Clauses — Filtering Rows
+
+The WHERE clause filters which rows are returned by your query. Without it, you get every row.
+
+## Basic Syntax
+
+  SELECT name, age FROM users WHERE age > 18;
+
+This returns only rows where the age column is greater than 18.
+
+## Comparison Operators
+
+- =    Equal to
+- !=   Not equal to (also <>)
+- >    Greater than
+- <    Less than
+- >=   Greater than or equal to
+- <=   Less than or equal to
+
+## Combining Conditions with AND / OR / NOT
+
+  SELECT * FROM orders WHERE status = 'shipped' AND total > 100;
+  SELECT * FROM products WHERE category = 'Books' OR category = 'Music';
+  SELECT * FROM users WHERE NOT country = 'US';
+
+- AND: both conditions must be true.
+- OR: at least one condition must be true.
+- NOT: reverses the condition.
+
+## NULL Checks
+
+NULL means "unknown / missing". You cannot use = with NULL:
+
+  SELECT * FROM users WHERE email IS NULL;
+  SELECT * FROM users WHERE email IS NOT NULL;
+
+## Key Points
+
+- WHERE goes after FROM but before ORDER BY.
+- Use AND/OR to combine multiple conditions.
+- Use IS NULL / IS NOT NULL for missing values.
+- Strings are enclosed in single quotes: 'value'.
+"""
+is_major_quiz = false
+
+[[questions]]
+question = "What does the WHERE clause do?"
+options = [
+  "Sorts the results",
+  "Filters which rows are included in the result",
+  "Selects which columns to display",
+  "Groups rows together",
+]
+correct = 1
+explanation = "WHERE filters rows based on a condition — only matching rows are returned."
+
+[[questions]]
+question = "Which operator checks for missing (NULL) values?"
+options = [
+  "= NULL",
+  "== NULL",
+  "IS NULL",
+  "EQUALS NULL",
+]
+correct = 2
+explanation = "You must use IS NULL (not = NULL) because NULL represents an unknown value."
+
+[[questions]]
+question = "What does this query return? SELECT * FROM users WHERE age >= 21 AND country = 'UK';"
+options = [
+  "All users in the UK",
+  "All users aged 21 or older",
+  "Users who are 21+ AND live in the UK",
+  "Users who are 21+ OR live in the UK",
+]
+correct = 2
+explanation = "AND means both conditions must be true — age >= 21 and country = 'UK'."
+
+[[questions]]
+question = "Which operator means 'not equal to' in SQL?"
+options = [
+  "!==",
+  "<>",
+  "=/=",
+  "NOT EQUALS",
+]
+correct = 1
+explanation = "<> is the SQL standard for 'not equal'. Many databases also support !=."
+
+[[questions]]
+question = "How are string values represented in SQL WHERE clauses?"
+options = [
+  "In double quotes: \"value\"",
+  "In backticks: `value`",
+  "In single quotes: 'value'",
+  "Without any quotes: value",
+]
+correct = 2
+explanation = "SQL uses single quotes for string literals: WHERE name = 'Alice'."
+
+[[questions]]
+question = "What does the OR operator do in a WHERE clause?"
+options = [
+  "Requires both conditions to be true",
+  "Requires at least one condition to be true",
+  "Negates the condition",
+  "Combines two tables",
+]
+correct = 1
+explanation = "OR returns a row if at least one of the conditions is true."

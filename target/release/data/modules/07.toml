@@ -1,0 +1,119 @@
+id = "07"
+title = "Indexes & Performance"
+lesson = """
+# Indexes & Performance
+
+Indexes make queries faster by allowing the database to find rows without scanning every row.
+
+## What Is an Index?
+
+Think of an index like a book's index — instead of reading every page to find "SQL", you look up "SQL" in the back and jump to the right page. A database index works the same way for column values.
+
+## Creating an Index
+
+  CREATE INDEX idx_email ON users(email);
+
+This creates an index on the email column of the users table.
+
+## Composite Indexes
+
+You can index multiple columns together:
+
+  CREATE INDEX idx_name_dept ON employees(last_name, department_id);
+
+The column order matters — this index helps queries filtering by last_name, or by last_name AND department_id, but NOT by department_id alone.
+
+## When to Index
+
+Good candidates for indexing:
+- Columns frequently used in WHERE clauses
+- Columns used in JOIN conditions
+- Columns used in ORDER BY
+
+## When NOT to Index
+
+- Small tables (full scan is fast enough)
+- Columns with very few distinct values (e.g., a boolean)
+- Tables with heavy INSERT/UPDATE/DELETE — indexes slow down writes
+- Every index consumes disk space
+
+## Query Planning with EXPLAIN
+
+  EXPLAIN SELECT * FROM users WHERE email = 'alice@example.com';
+
+EXPLAIN shows the database's execution plan — whether it uses an index or does a full table scan. Use it to diagnose slow queries.
+
+## Key Points
+
+- Indexes speed up reads but slow down writes.
+- Index columns used in WHERE, JOIN, and ORDER BY.
+- Use EXPLAIN to check if your queries use indexes.
+- Don't over-index — each index has maintenance cost.
+"""
+is_major_quiz = false
+
+[[questions]]
+question = "What does a database index do?"
+options = [
+  "Sorts the table permanently",
+  "Allows the database to find rows faster without scanning every row",
+  "Encrypts the data",
+  "Backs up the table",
+]
+correct = 1
+explanation = "An index is a data structure that lets the database locate rows quickly by column value."
+
+[[questions]]
+question = "What is the syntax to create an index on the 'email' column?"
+options = [
+  "ADD INDEX email ON users;",
+  "CREATE INDEX idx_email ON users(email);",
+  "INDEX users.email;",
+  "ALTER TABLE users INDEX email;",
+]
+correct = 1
+explanation = "CREATE INDEX name ON table(column); is the standard syntax."
+
+[[questions]]
+question = "Why might you NOT want to add indexes to every column?"
+options = [
+  "Indexes are free and have no downsides",
+  "Indexes slow down write operations and consume disk space",
+  "Indexes make SELECT queries slower",
+  "Indexes delete data",
+]
+correct = 1
+explanation = "Each index must be updated on INSERT/UPDATE/DELETE, slowing writes and using storage."
+
+[[questions]]
+question = "What does EXPLAIN do?"
+options = [
+  "Deletes the query plan",
+  "Shows how the database will execute a query (its execution plan)",
+  "Creates an index automatically",
+  "Explains SQL syntax errors",
+]
+correct = 1
+explanation = "EXPLAIN reveals the execution plan — showing whether indexes are used, join methods, etc."
+
+[[questions]]
+question = "For a composite index on (last_name, department_id), which query benefits?"
+options = [
+  "WHERE department_id = 5",
+  "WHERE last_name = 'Smith'",
+  "WHERE email = 'test@test.com'",
+  "WHERE salary > 50000",
+]
+correct = 1
+explanation = "Composite indexes work left-to-right. A query on last_name (the first column) can use this index."
+
+[[questions]]
+question = "Which columns are good candidates for indexing?"
+options = [
+  "Boolean columns with only TRUE/FALSE values",
+  "Columns in frequently used WHERE and JOIN conditions",
+  "Columns that are never queried",
+  "Columns in tables with mostly INSERT operations",
+]
+correct = 1
+explanation = "Columns frequently filtered or joined on benefit most from indexes."

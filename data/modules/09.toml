@@ -1,0 +1,129 @@
+id = "09"
+title = "Window Functions"
+lesson = """
+# Window Functions — Analytics Without Losing Rows
+
+Window functions perform calculations across a set of rows related to the current row — without collapsing them like GROUP BY does.
+
+## The OVER Clause
+
+Every window function uses OVER() to define its "window":
+
+  SELECT name, salary,
+    AVG(salary) OVER() AS company_avg
+  FROM employees;
+
+This adds the company-wide average salary to every row without grouping.
+
+## PARTITION BY — Grouping Within Windows
+
+PARTITION BY is like GROUP BY, but it keeps all rows:
+
+  SELECT name, department, salary,
+    AVG(salary) OVER(PARTITION BY department) AS dept_avg
+  FROM employees;
+
+Each row shows its department's average salary alongside individual data.
+
+## ROW_NUMBER
+
+Assigns a unique sequential number to each row:
+
+  SELECT name, salary,
+    ROW_NUMBER() OVER(ORDER BY salary DESC) AS rank
+  FROM employees;
+
+The highest salary gets rank 1, second highest gets 2, etc.
+
+## RANK and DENSE_RANK
+
+- RANK: ties get the same rank, then skips (1, 2, 2, 4).
+- DENSE_RANK: ties get the same rank, no skipping (1, 2, 2, 3).
+
+  SELECT name, salary,
+    RANK() OVER(ORDER BY salary DESC) AS rnk,
+    DENSE_RANK() OVER(ORDER BY salary DESC) AS dense_rnk
+  FROM employees;
+
+## Combining PARTITION BY and ORDER BY
+
+  SELECT name, department, salary,
+    ROW_NUMBER() OVER(PARTITION BY department ORDER BY salary DESC) AS dept_rank
+  FROM employees;
+
+This ranks employees within each department separately.
+
+## Key Points
+
+- Window functions add computed columns without reducing row count.
+- OVER() defines the window; PARTITION BY groups it; ORDER BY orders it.
+- ROW_NUMBER: unique numbers. RANK: with gaps. DENSE_RANK: no gaps.
+- Common uses: rankings, running totals, moving averages, top-N per group.
+"""
+is_major_quiz = false
+
+[[questions]]
+question = "How do window functions differ from GROUP BY?"
+options = [
+  "They are the same thing",
+  "Window functions collapse rows; GROUP BY keeps them",
+  "Window functions keep all rows while adding computed values",
+  "Window functions can only count",
+]
+correct = 2
+explanation = "Window functions compute values across a set of rows but keep every individual row in the output."
+
+[[questions]]
+question = "What does the OVER() clause do?"
+options = [
+  "Defines the table to query",
+  "Defines the window (set of rows) for the function to operate on",
+  "Sorts the final output",
+  "Limits the number of rows",
+]
+correct = 1
+explanation = "OVER() specifies the window of rows the function uses for its calculation."
+
+[[questions]]
+question = "What does PARTITION BY do inside a window function?"
+options = [
+  "Deletes rows from the partition",
+  "Divides rows into groups for separate window calculations",
+  "Sorts the results",
+  "Joins two tables",
+]
+correct = 1
+explanation = "PARTITION BY divides the result set into partitions, and the window function runs within each partition."
+
+[[questions]]
+question = "What is the difference between RANK and DENSE_RANK?"
+options = [
+  "RANK skips numbers after ties; DENSE_RANK does not",
+  "They are identical",
+  "DENSE_RANK is slower",
+  "RANK can only be used with strings",
+]
+correct = 0
+explanation = "RANK leaves gaps after ties (1,2,2,4). DENSE_RANK fills consecutively (1,2,2,3)."
+
+[[questions]]
+question = "What does ROW_NUMBER() do?"
+options = [
+  "Counts the total number of rows",
+  "Assigns a unique sequential integer to each row within its partition",
+  "Returns the row's primary key",
+  "Generates random numbers",
+]
+correct = 1
+explanation = "ROW_NUMBER() gives each row a unique incrementing number based on the ORDER BY in OVER()."
+
+[[questions]]
+question = "What does this query do? ROW_NUMBER() OVER(PARTITION BY dept ORDER BY salary DESC)"
+options = [
+  "Ranks all employees globally by salary",
+  "Ranks employees within each department by salary, highest first",
+  "Counts employees per department",
+  "Sorts the table by department",
+]
+correct = 1
+explanation = "PARTITION BY dept creates per-department groups; ORDER BY salary DESC ranks highest salary first within each."

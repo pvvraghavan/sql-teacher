@@ -1,0 +1,126 @@
+id = "06"
+title = "Subqueries"
+lesson = """
+# Subqueries — Queries Within Queries
+
+A subquery is a SELECT statement nested inside another SQL statement.
+
+## Subquery in WHERE
+
+Use a subquery to filter rows based on the result of another query:
+
+  SELECT name FROM employees
+  WHERE department_id IN (
+    SELECT id FROM departments WHERE location = 'London'
+  );
+
+The inner query finds London department IDs; the outer query finds employees in those departments.
+
+## Scalar Subqueries
+
+A subquery that returns a single value can be used with comparison operators:
+
+  SELECT name, salary FROM employees
+  WHERE salary > (SELECT AVG(salary) FROM employees);
+
+This finds employees earning above the company average.
+
+## Correlated Subqueries
+
+A correlated subquery references the outer query, running once per outer row:
+
+  SELECT e.name, e.salary
+  FROM employees e
+  WHERE e.salary > (
+    SELECT AVG(salary) FROM employees
+    WHERE department_id = e.department_id
+  );
+
+This finds employees earning above their own department's average.
+
+## EXISTS
+
+EXISTS checks whether a subquery returns any rows at all:
+
+  SELECT c.name FROM customers c
+  WHERE EXISTS (
+    SELECT 1 FROM orders o WHERE o.customer_id = c.id
+  );
+
+Returns customers who have at least one order.
+
+## Key Points
+
+- Subqueries can appear in WHERE, SELECT, FROM, and HAVING.
+- Use IN for subqueries returning multiple values.
+- Use = / > / < for scalar (single-value) subqueries.
+- Correlated subqueries reference the outer query and run per row.
+- EXISTS is efficient for checking if related rows exist.
+"""
+is_major_quiz = false
+
+[[questions]]
+question = "What is a subquery?"
+options = [
+  "A query that deletes data",
+  "A SELECT statement nested inside another SQL statement",
+  "A special type of JOIN",
+  "A stored procedure",
+]
+correct = 1
+explanation = "A subquery is a complete SELECT statement embedded within another query."
+
+[[questions]]
+question = "When should you use IN with a subquery?"
+options = [
+  "When the subquery returns a single value",
+  "When the subquery returns multiple rows/values",
+  "When joining tables",
+  "When sorting results",
+]
+correct = 1
+explanation = "IN checks if a value matches any value in the list returned by the subquery."
+
+[[questions]]
+question = "What is a correlated subquery?"
+options = [
+  "A subquery that runs only once",
+  "A subquery that references columns from the outer query",
+  "A subquery that deletes rows",
+  "A subquery that creates a new table",
+]
+correct = 1
+explanation = "A correlated subquery references the outer query's columns and executes once per outer row."
+
+[[questions]]
+question = "What does EXISTS check?"
+options = [
+  "Whether a column exists in the table",
+  "Whether a table exists in the database",
+  "Whether the subquery returns at least one row",
+  "Whether a value is NULL",
+]
+correct = 2
+explanation = "EXISTS returns TRUE if the subquery returns one or more rows, FALSE otherwise."
+
+[[questions]]
+question = "What does this return? SELECT name FROM staff WHERE salary > (SELECT AVG(salary) FROM staff);"
+options = [
+  "All employees",
+  "The average salary",
+  "Employees whose salary is above the company average",
+  "The highest-paid employee only",
+]
+correct = 2
+explanation = "The subquery computes the average salary; the outer query finds everyone earning more than that."
+
+[[questions]]
+question = "In which SQL clauses can subqueries appear?"
+options = [
+  "Only in WHERE",
+  "Only in SELECT and WHERE",
+  "In WHERE, SELECT, FROM, and HAVING",
+  "Only in FROM",
+]
+correct = 2
+explanation = "Subqueries are versatile — they can appear in WHERE, SELECT, FROM, HAVING, and more."

@@ -1,0 +1,103 @@
+id = "01"
+title = "SELECT Basics"
+lesson = """
+# SELECT Basics
+
+The SELECT statement is the foundation of SQL. It lets you retrieve data from a database table.
+
+## Basic Syntax
+
+  SELECT column1, column2 FROM table_name;
+
+- SELECT tells the database which columns you want.
+- FROM tells the database which table to look in.
+- Always end SQL statements with a semicolon (;).
+
+## Selecting All Columns
+
+  SELECT * FROM employees;
+
+The asterisk (*) means "all columns". This is handy for exploration but should be avoided in production code — it's slower and less readable.
+
+## Column Aliases
+
+You can rename columns in your output using AS:
+
+  SELECT first_name AS name, salary AS pay FROM employees;
+
+This doesn't change the database — it only changes how the result is displayed.
+
+## Key Points
+
+- SELECT chooses columns, FROM chooses the table.
+- Use * to select everything (but prefer named columns).
+- Use AS to give columns friendlier names in results.
+- SQL keywords are case-insensitive: SELECT = select = Select.
+"""
+is_major_quiz = false
+
+[[questions]]
+question = "What does SELECT * FROM customers; do?"
+options = [
+  "Deletes all rows from customers",
+  "Returns all columns and rows from customers",
+  "Creates a new table called customers",
+  "Returns only the first row from customers",
+]
+correct = 1
+explanation = "SELECT * returns all columns for every row in the table."
+
+[[questions]]
+question = "What keyword specifies which table to query?"
+options = [
+  "WHERE",
+  "TABLE",
+  "FROM",
+  "IN",
+]
+correct = 2
+explanation = "FROM specifies the table you are selecting data from."
+
+[[questions]]
+question = "What does AS do in a SELECT statement?"
+options = [
+  "Filters rows",
+  "Sorts results",
+  "Creates a column alias for the output",
+  "Joins two tables",
+]
+correct = 2
+explanation = "AS gives a column a temporary display name (alias) in the results."
+
+[[questions]]
+question = "Which statement correctly selects the 'name' and 'email' columns from 'users'?"
+options = [
+  "GET name, email FROM users;",
+  "SELECT name, email FROM users;",
+  "SHOW name, email IN users;",
+  "FIND name, email FROM users;",
+]
+correct = 1
+explanation = "SELECT column1, column2 FROM table; is the correct syntax."
+
+[[questions]]
+question = "Why is SELECT * generally discouraged in production code?"
+options = [
+  "It causes syntax errors",
+  "It only returns one column",
+  "It can be slower and less readable than selecting specific columns",
+  "It permanently modifies the table",
+]
+correct = 2
+explanation = "SELECT * fetches every column which uses more bandwidth and makes the query harder to understand."
+
+[[questions]]
+question = "Are SQL keywords like SELECT and FROM case-sensitive?"
+options = [
+  "Yes, they must be uppercase",
+  "Yes, they must be lowercase",
+  "No, SQL keywords are case-insensitive",
+  "Only in PostgreSQL",
+]
+correct = 2
+explanation = "SQL keywords are case-insensitive. SELECT, select, and Select all work the same."

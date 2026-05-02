@@ -1,0 +1,127 @@
+id = "10_major"
+title = "Major Quiz #2 — Modules 06–09"
+lesson = """
+# Major Quiz #2
+
+This is the final checkpoint quiz covering Modules 06 through 09:
+
+- Module 06: Subqueries
+- Module 07: Indexes & Performance
+- Module 08: Transactions
+- Module 09: Window Functions
+
+You need 90% to pass and complete the curriculum!
+
+Review any topics you're unsure about before starting. Good luck!
+"""
+is_major_quiz = true
+
+[[questions]]
+question = "What does a correlated subquery do?"
+options = [
+  "Runs once and caches the result",
+  "References the outer query's columns and runs once per outer row",
+  "Creates a temporary table",
+  "Deletes matching rows",
+]
+correct = 1
+explanation = "A correlated subquery references the outer query and is re-evaluated for each outer row."
+
+[[questions]]
+question = "Why should you avoid over-indexing a table?"
+options = [
+  "Indexes make the table invisible",
+  "Each index slows down INSERT/UPDATE/DELETE and uses disk space",
+  "Indexes prevent SELECT queries",
+  "You can only have one index per table",
+]
+correct = 1
+explanation = "Every index must be maintained on writes, adding overhead. More indexes = slower writes + more storage."
+
+[[questions]]
+question = "What does COMMIT do in a transaction?"
+options = [
+  "Cancels all changes",
+  "Starts a new transaction",
+  "Permanently saves all changes from the current transaction",
+  "Creates a savepoint",
+]
+correct = 2
+explanation = "COMMIT finalizes the transaction, making all its changes permanent in the database."
+
+[[questions]]
+question = "How does a window function differ from an aggregate with GROUP BY?"
+options = [
+  "They produce identical results",
+  "Window functions keep all individual rows; GROUP BY collapses them",
+  "GROUP BY is faster",
+  "Window functions can only use SUM",
+]
+correct = 1
+explanation = "Window functions add computed values alongside each row; GROUP BY reduces rows to one per group."
+
+[[questions]]
+question = "What does EXISTS check in a subquery?"
+options = [
+  "Whether a column contains NULL",
+  "Whether the subquery returns at least one row",
+  "Whether a table exists",
+  "Whether an index exists",
+]
+correct = 1
+explanation = "EXISTS returns TRUE if the subquery produces any rows, FALSE if it produces none."
+
+[[questions]]
+question = "What does EXPLAIN show?"
+options = [
+  "The table's creation date",
+  "The SQL syntax documentation",
+  "The database's execution plan for a query",
+  "The number of rows in a table",
+]
+correct = 2
+explanation = "EXPLAIN reveals how the database will execute a query — join methods, index usage, scan types, etc."
+
+[[questions]]
+question = "What does the 'I' in ACID stand for?"
+options = [
+  "Indexing",
+  "Integrity",
+  "Isolation",
+  "Inheritance",
+]
+correct = 2
+explanation = "Isolation means concurrent transactions don't interfere with each other."
+
+[[questions]]
+question = "What does DENSE_RANK do differently from RANK?"
+options = [
+  "DENSE_RANK has no gaps in ranking after ties; RANK skips positions",
+  "DENSE_RANK runs faster",
+  "DENSE_RANK only works with numbers",
+  "They are identical",
+]
+correct = 0
+explanation = "RANK: 1,2,2,4 (skips 3). DENSE_RANK: 1,2,2,3 (no gap)."
+
+[[questions]]
+question = "In which clause would you use a subquery to filter groups?"
+options = [
+  "WHERE",
+  "SELECT",
+  "HAVING",
+  "FROM",
+]
+correct = 2
+explanation = "HAVING filters groups after aggregation — a subquery in HAVING can set dynamic thresholds."
+
+[[questions]]
+question = "What does ROLLBACK do if called inside a BEGIN...COMMIT block?"
+options = [
+  "Saves changes",
+  "Undoes all changes made since the BEGIN",
+  "Deletes the table",
+  "Restarts the entire database",
+]
+correct = 1
+explanation = "ROLLBACK discards all changes made within the current transaction, as if they never happened."

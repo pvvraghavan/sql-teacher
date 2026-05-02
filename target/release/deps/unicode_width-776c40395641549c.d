@@ -1,0 +1,8 @@
+C:\Users\vaish\Documents\sql_teacher\target\release\deps\unicode_width-776c40395641549c.d: C:\Users\vaish\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\unicode-width-0.1.14\src\lib.rs C:\Users\vaish\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\unicode-width-0.1.14\src\tables.rs
+
+C:\Users\vaish\Documents\sql_teacher\target\release\deps\libunicode_width-776c40395641549c.rlib: C:\Users\vaish\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\unicode-width-0.1.14\src\lib.rs C:\Users\vaish\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\unicode-width-0.1.14\src\tables.rs
+
+C:\Users\vaish\Documents\sql_teacher\target\release\deps\libunicode_width-776c40395641549c.rmeta: C:\Users\vaish\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\unicode-width-0.1.14\src\lib.rs C:\Users\vaish\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\unicode-width-0.1.14\src\tables.rs
+
+C:\Users\vaish\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\unicode-width-0.1.14\src\lib.rs:
+C:\Users\vaish\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\unicode-width-0.1.14\src\tables.rs:

@@ -1,0 +1,117 @@
+id = "04"
+title = "GROUP BY & Aggregates"
+lesson = """
+# GROUP BY & Aggregate Functions
+
+Aggregate functions perform calculations across groups of rows.
+
+## Common Aggregate Functions
+
+- COUNT(*) — counts the number of rows
+- SUM(column) — adds up all values
+- AVG(column) — calculates the average
+- MIN(column) — finds the smallest value
+- MAX(column) — finds the largest value
+
+## Using Aggregates Without GROUP BY
+
+When used alone, aggregates run against all rows:
+
+  SELECT COUNT(*) FROM orders;          -- total number of orders
+  SELECT AVG(salary) FROM employees;    -- average salary across everyone
+
+## GROUP BY — Aggregates Per Group
+
+GROUP BY splits rows into groups, then runs the aggregate on each group:
+
+  SELECT department, AVG(salary)
+  FROM employees
+  GROUP BY department;
+
+This returns one row per department, each with its own average salary.
+
+## HAVING — Filtering Groups
+
+WHERE filters individual rows (before grouping). HAVING filters groups (after grouping).
+
+  SELECT department, COUNT(*) AS headcount
+  FROM employees
+  GROUP BY department
+  HAVING COUNT(*) > 10;
+
+This shows only departments with more than 10 employees.
+
+## Key Points
+
+- Aggregate functions collapse many rows into one value.
+- GROUP BY creates one result row per group.
+- WHERE filters rows before grouping; HAVING filters after.
+- Every non-aggregated column in SELECT must appear in GROUP BY.
+"""
+is_major_quiz = false
+
+[[questions]]
+question = "What does COUNT(*) return?"
+options = [
+  "The sum of all numeric values",
+  "The number of columns in the table",
+  "The number of rows",
+  "The maximum value",
+]
+correct = 2
+explanation = "COUNT(*) counts the total number of rows (including those with NULLs)."
+
+[[questions]]
+question = "What does GROUP BY do?"
+options = [
+  "Sorts the results alphabetically",
+  "Splits rows into groups and runs aggregates on each group",
+  "Limits the number of returned rows",
+  "Joins two tables together",
+]
+correct = 1
+explanation = "GROUP BY partitions rows into groups so aggregate functions run per group."
+
+[[questions]]
+question = "What is the difference between WHERE and HAVING?"
+options = [
+  "They are the same thing",
+  "WHERE filters rows before grouping; HAVING filters groups after grouping",
+  "WHERE is for numbers; HAVING is for strings",
+  "HAVING runs first, then WHERE",
+]
+correct = 1
+explanation = "WHERE filters individual rows before GROUP BY. HAVING filters the aggregated groups after."
+
+[[questions]]
+question = "What does this return? SELECT department, MAX(salary) FROM employees GROUP BY department;"
+options = [
+  "The highest salary in the entire company",
+  "The highest salary within each department",
+  "All salaries sorted by department",
+  "An error because MAX needs WHERE",
+]
+correct = 1
+explanation = "GROUP BY department creates one group per department, then MAX(salary) finds the highest in each."
+
+[[questions]]
+question = "If you SELECT a column without an aggregate, must it be in GROUP BY?"
+options = [
+  "No, it's optional",
+  "Yes, every non-aggregated column in SELECT must be in GROUP BY",
+  "Only in MySQL",
+  "Only if using HAVING",
+]
+correct = 1
+explanation = "SQL requires that non-aggregated SELECT columns appear in GROUP BY, otherwise the result is ambiguous."
+
+[[questions]]
+question = "Which function calculates the average of a column?"
+options = [
+  "MEAN(column)",
+  "AVERAGE(column)",
+  "AVG(column)",
+  "SUM(column)/COUNT(column)",
+]
+correct = 2
+explanation = "AVG() is the standard SQL aggregate for computing the average of a column."

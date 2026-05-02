@@ -1,0 +1,118 @@
+id = "08"
+title = "Transactions"
+lesson = """
+# Transactions — Safe Multi-Step Operations
+
+A transaction groups multiple SQL statements into a single, all-or-nothing unit of work.
+
+## Why Transactions?
+
+Imagine transferring money between bank accounts:
+  1. Subtract $100 from Account A
+  2. Add $100 to Account B
+
+If step 1 succeeds but step 2 fails (server crash), money vanishes. Transactions prevent this.
+
+## Basic Transaction Syntax
+
+  BEGIN;
+    UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+    UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+  COMMIT;
+
+- BEGIN starts the transaction.
+- COMMIT saves all changes permanently.
+- If anything fails, nothing is saved.
+
+## ROLLBACK — Undoing Changes
+
+  BEGIN;
+    DELETE FROM orders WHERE id = 999;
+    -- Oops, wrong order!
+  ROLLBACK;
+
+ROLLBACK cancels all changes made since BEGIN. The delete never happened.
+
+## ACID Properties
+
+Transactions guarantee four properties (ACID):
+
+- Atomicity: All statements succeed or all fail — no partial changes.
+- Consistency: The database moves from one valid state to another.
+- Isolation: Concurrent transactions don't interfere with each other.
+- Durability: Once committed, changes survive crashes and power failures.
+
+## Key Points
+
+- Use BEGIN to start, COMMIT to save, ROLLBACK to cancel.
+- Transactions ensure atomicity — no half-done operations.
+- ACID properties are the foundation of reliable databases.
+- Always COMMIT or ROLLBACK — leaving transactions open locks resources.
+"""
+is_major_quiz = false
+
+[[questions]]
+question = "What does a transaction guarantee?"
+options = [
+  "That queries run faster",
+  "That all statements succeed together or all fail together",
+  "That data is encrypted",
+  "That indexes are created automatically",
+]
+correct = 1
+explanation = "Transactions are atomic — either every statement succeeds, or none of them take effect."
+
+[[questions]]
+question = "What does ROLLBACK do?"
+options = [
+  "Saves all changes permanently",
+  "Cancels all changes made since BEGIN",
+  "Deletes the table",
+  "Restarts the database",
+]
+correct = 1
+explanation = "ROLLBACK undoes every change made within the current transaction."
+
+[[questions]]
+question = "What does the 'A' in ACID stand for?"
+options = [
+  "Availability",
+  "Authentication",
+  "Atomicity",
+  "Aggregation",
+]
+correct = 2
+explanation = "Atomicity means the transaction is indivisible — all-or-nothing."
+
+[[questions]]
+question = "What happens if the database crashes in the middle of a transaction (before COMMIT)?"
+options = [
+  "Partial changes are saved",
+  "All changes from that transaction are rolled back",
+  "The database is corrupted",
+  "Only the last statement is saved",
+]
+correct = 1
+explanation = "Due to atomicity, uncommitted transactions are rolled back on crash — no partial changes."
+
+[[questions]]
+question = "What does the 'D' in ACID stand for?"
+options = [
+  "Distribution",
+  "Deletion",
+  "Durability",
+  "Dependency",
+]
+correct = 2
+explanation = "Durability means once a transaction is committed, its changes persist even after a crash."
+
+[[questions]]
+question = "What is the correct order of commands in a basic transaction?"
+options = [
+  "COMMIT, BEGIN, SQL statements",
+  "BEGIN, SQL statements, COMMIT (or ROLLBACK)",
+  "SQL statements, BEGIN, COMMIT",
+  "ROLLBACK, SQL statements, COMMIT",
+]
+correct = 1
+explanation = "Start with BEGIN, execute your SQL statements, then COMMIT to save or ROLLBACK to cancel."

@@ -1,0 +1,120 @@
+id = "03"
+title = "JOINs"
+lesson = """
+# JOINs — Combining Data from Multiple Tables
+
+JOINs let you combine rows from two or more tables based on a related column.
+
+## INNER JOIN
+
+Returns only rows that have matching values in both tables.
+
+  SELECT orders.id, customers.name
+  FROM orders
+  INNER JOIN customers ON orders.customer_id = customers.id;
+
+Only customers who have orders (and orders that have customers) appear.
+
+## LEFT JOIN (LEFT OUTER JOIN)
+
+Returns all rows from the left table, and matched rows from the right. If no match, NULLs fill in.
+
+  SELECT customers.name, orders.id
+  FROM customers
+  LEFT JOIN orders ON customers.id = orders.customer_id;
+
+Every customer appears — those without orders show NULL for order columns.
+
+## RIGHT JOIN (RIGHT OUTER JOIN)
+
+Returns all rows from the right table, and matched rows from the left.
+
+  SELECT customers.name, orders.id
+  FROM customers
+  RIGHT JOIN orders ON customers.id = orders.customer_id;
+
+Every order appears — orphaned orders (deleted customer) show NULL for customer columns.
+
+## FULL OUTER JOIN
+
+Returns all rows from both tables. Unmatched rows on either side get NULLs.
+
+  SELECT c.name, o.id
+  FROM customers c
+  FULL OUTER JOIN orders o ON c.id = o.customer_id;
+
+## Key Points
+
+- INNER JOIN = only matches from both sides.
+- LEFT JOIN = everything from left, matches from right.
+- RIGHT JOIN = everything from right, matches from left.
+- FULL OUTER JOIN = everything from both sides.
+- The ON clause specifies the matching condition.
+"""
+is_major_quiz = false
+
+[[questions]]
+question = "What does an INNER JOIN return?"
+options = [
+  "All rows from both tables",
+  "Only rows from the left table",
+  "Only rows that have matches in both tables",
+  "All rows from the right table",
+]
+correct = 2
+explanation = "INNER JOIN returns only rows where the join condition is met in both tables."
+
+[[questions]]
+question = "In a LEFT JOIN, what happens to rows in the left table that have no match in the right?"
+options = [
+  "They are excluded from results",
+  "They appear with NULL values for the right table's columns",
+  "They cause an error",
+  "They are duplicated",
+]
+correct = 1
+explanation = "LEFT JOIN keeps all left-table rows; unmatched right-side columns become NULL."
+
+[[questions]]
+question = "Which JOIN type returns all rows from both tables, with NULLs where there is no match?"
+options = [
+  "INNER JOIN",
+  "LEFT JOIN",
+  "RIGHT JOIN",
+  "FULL OUTER JOIN",
+]
+correct = 3
+explanation = "FULL OUTER JOIN returns every row from both tables, filling NULLs where unmatched."
+
+[[questions]]
+question = "What does the ON clause specify in a JOIN?"
+options = [
+  "Which columns to display",
+  "The condition that links the two tables",
+  "The sort order of results",
+  "How many rows to return",
+]
+correct = 1
+explanation = "ON defines the matching condition between the two tables (e.g., ON a.id = b.a_id)."
+
+[[questions]]
+question = "If 'customers' has 5 rows and 'orders' has 3 rows (all matching), how many rows does an INNER JOIN return?"
+options = [
+  "5 rows",
+  "8 rows",
+  "3 rows",
+  "15 rows",
+]
+correct = 2
+explanation = "INNER JOIN returns only matched rows. With 3 orders each matching a customer, you get 3 rows."
+
+[[questions]]
+question = "What is the difference between LEFT JOIN and RIGHT JOIN?"
+options = [
+  "They are identical",
+  "LEFT keeps all left-table rows; RIGHT keeps all right-table rows",
+  "LEFT is faster than RIGHT",
+  "LEFT is for numbers, RIGHT is for strings",
+]
+correct = 1
+explanation = "LEFT JOIN preserves all rows from the left table; RIGHT JOIN preserves all from the right."
