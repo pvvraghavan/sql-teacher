@@ -191,4 +191,16 @@ test gate::tests::test_progress_fraction ... ok
 
 ---
 
+## 💭 Why I built this
+
+I wanted to learn Rust through a real project rather than exercises in isolation. 
+A friend needed to learn SQL, which gave me the constraint: build something actually 
+useful to someone else. Every Rust concept was learned immediately before being used — 
+ownership before passing data between modules, `Result` before writing file I/O, 
+iterators before the gating logic.
+
+The compiler errors were the most useful part.
+
+---
+
 Built with 🦀 Rust
